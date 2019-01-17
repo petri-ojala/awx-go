@@ -56,6 +56,25 @@ func (j *JobService) GetJob(id int, params map[string]string) (*Job, error) {
 	return result, nil
 }
 
+// GetJobStdout get stdout of a job.
+func (j *JobService) GetJobStdout(id int, params map[string]string) (*string, error) {
+        var result *string
+
+	result = new(string)
+
+        endpoint := fmt.Sprintf("/api/v2/jobs/%d/stdout/", id)
+        resp, err := j.client.Requester.Get(endpoint, result, params)
+        if err != nil {
+                return nil, err
+        }
+
+        if err := CheckResponse(resp); err != nil {
+                return nil, err
+        }
+
+        return result, nil
+}
+
 // CancelJob cancels a job.
 func (j *JobService) CancelJob(id int, data map[string]interface{}, params map[string]string) (*CancelJobResponse, error) {
 	result := new(CancelJobResponse)

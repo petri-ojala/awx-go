@@ -53,7 +53,7 @@ type Requester struct {
 
 // Do do the actual http request.
 func (r *Requester) Do(ar *APIRequest, responseStruct interface{}, options ...interface{}) (*http.Response, error) {
-	if !strings.HasSuffix(ar.Endpoint, "/") && ar.Method != "POST" {
+	if !strings.HasSuffix(ar.Endpoint, "/") && !strings.Contains(ar.Endpoint, "?") && ar.Method != "POST" {
 		ar.Endpoint += "/"
 	}
 
