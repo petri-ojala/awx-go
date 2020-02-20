@@ -71,7 +71,7 @@ func NewAWX(baseURL, userName, passwd string, client *http.Client) *AWX {
                 tr := &http.Transport{
             		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 		}
-		r.Client = http.DefaultClient{Transport: tr}
+		r.Client = &http.Client{Transport: tr}
 	}
 
 	awxClient := &Client{
