@@ -68,7 +68,10 @@ func ValidateParams(data map[string]interface{}, mandatoryFields []string) (notf
 func NewAWX(baseURL, userName, passwd string, client *http.Client) *AWX {
 	r := &Requester{Base: baseURL, BasicAuth: &BasicAuth{Username: userName, Password: passwd}, Client: client}
 	if r.Client == nil {
-		r.Client = http.DefaultClient
+                tr := &http.Transport{
+            		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+		}
+		r.Client = http.DefaultClient{Transport: tr}
 	}
 
 	awxClient := &Client{
