@@ -1,6 +1,7 @@
 package awx
 
 import (
+	"crypto/tls"
 	"fmt"
 	"net/http"
 	"testing"
